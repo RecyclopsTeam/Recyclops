@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Outpan Input Form</title>
+
+</head>
+
+<body id="page-top">
+    <form action="http://www.outpan.com/api/edit-attr.php" id="data" method="GET">
+        <input type="hidden" name="apikey" value="ac75f6821225d0efc22cb8cb9cfd294b">
+        <div>
+            <label>Barcode</label>
+            <input type="text" name="barcode">
+        </div>
+        <div>
+            <label>Attribute</label>
+            <select name="attr_name">
+                <option value="Material">Material</option>
+                <option value="Size">Size</option>
+                <option value="Soiled">Soiled</option>
+                <option value="Recycling Code">Recycling Code</option>
+            </select>
+        </div>
+        <div>
+            <label>Value</label>
+            <input type="text" name="attr_val">
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-12">
+                <button type="submit" class="btn btn-success btn-lg">Add Attribute</button>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
