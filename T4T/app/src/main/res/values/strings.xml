@@ -4,5 +4,6 @@
     <string name="app_name">T4T</string>
     <string name="hello_world">yoooooo!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_reference">This is dumb</string>
 
 </resources>
