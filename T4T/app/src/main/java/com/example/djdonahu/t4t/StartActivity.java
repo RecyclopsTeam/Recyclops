@@ -56,7 +56,7 @@ public class StartActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(StartActivity.this, ReferenceActivity.class);
+                Intent intent = new Intent(StartActivity.this, ScanActivity.class);
                 startActivity(intent);
             }
         });
