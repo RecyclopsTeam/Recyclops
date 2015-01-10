@@ -7,6 +7,48 @@
     tools:context="com.example.djdonahu.t4t.ScanActivity$PlaceholderFragment">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_image"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/coca_cola" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Coca-Cola 12 Pack 12 FL OZ Cans"
+        android:id="@+id/item_name"
+        android:layout_below="@+id/item_image"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purchased"
+        android:id="@+id/purchased_button"
+        android:layout_below="@+id/item_name"
+        android:layout_marginTop="66dp"
+        android:layout_alignRight="@+id/item_image"
+        android:layout_alignEnd="@+id/item_image"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nope"
+        android:id="@+id/nope_button"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/purchased_button"
+        android:layout_alignRight="@+id/purchased_button"
+        android:layout_alignEnd="@+id/purchased_button"
+        android:layout_alignLeft="@+id/purchased_button"
+        android:layout_alignStart="@+id/purchased_button" />
 
 </RelativeLayout>
