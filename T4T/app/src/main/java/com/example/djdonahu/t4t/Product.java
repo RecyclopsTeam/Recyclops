@@ -12,19 +12,19 @@ public class Product {
     public String product_name;
 
     @SerializedName("packaging_material")
-    public String packaging_material;
+    public String packaging_material = "No materials";
 
     @SerializedName("attributes")
     public HashMap<String,String> attributes;
 
     @SerializedName("packaging_size")
-    public String packaging_size;
+    public String packaging_size = "No material size found";
 
     @SerializedName("contents_material")
-    public String contents_material;
+    public String contents_material = "No materials";
 
     @SerializedName("contents_size")
-    public String contents_size;
+    public String contents_size = "No material size found";
 
     @SerializedName("barcode")
     public String upc;
