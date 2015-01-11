@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">T4T</string>
-    <string name="hello_world">yoooooo!</string>
+    <string name="app_name">Recyclops</string>
+    <string name="hello_world">delete this part</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_reference">Reference</string>
     <string name="title_activity_stats">Statistics</string>
     <string name="title_activity_scan">Scan Result</string>
-
+    <string name="title_activity_search_reference">SearchReferenceActivity</string>
+    <string name="search_hint">Search products</string>
 
 </resources>
