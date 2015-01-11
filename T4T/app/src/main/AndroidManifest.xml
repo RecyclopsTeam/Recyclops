@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.djdonahu.t4t" >
 
+    <uses-feature android:name="android.hardware.screen.portrait" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -9,24 +11,29 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".StartActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> 
+            </intent-filter>
         </activity>
         <activity
             android:name=".StatsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_stats" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ReferenceActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_reference" >
 
             <!-- <intent-filter> -->
@@ -38,7 +45,20 @@
         </activity>
         <activity
             android:name=".ScanActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_scan" >
+        </activity>
+        <activity
+            android:name=".SearchReferenceActivity"
+            android:label="@string/title_activity_search_reference"
+            android:parentActivityName=".ReferenceActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:value="com.example.djdonahu.t4t.ReferenceActivity"
+                android:resource="@xml/searchable" />
         </activity>
     </application>
 
