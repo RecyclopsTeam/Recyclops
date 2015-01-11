@@ -111,7 +111,6 @@ public class StatsActivity extends ActionBarActivity {
         //DataPoint[] wasteData = returnInfo(dayWasteTotal);
         //DataPoint[] recycleData = returnInfo(dayRecycleTotal);
 
-        //Log.e("ARRAY", wasteData[0].toString());
 
         BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
         BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);
@@ -125,8 +124,14 @@ public class StatsActivity extends ActionBarActivity {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    // show normal x values
-                    return graphStats.labels[(int)Math.round(value)];
+                    int v = (int)Math.round(value);
+                    if (v >= 0 && v < graphStats.labels.length) {
+                        // show normal x values
+                        return graphStats.labels[v];
+                    } else {
+                        // Out of bounds
+                        return "";
+                    }
                 } else {
                     // show currency for y values
                     return super.formatLabel(value, isValueX);
@@ -148,6 +153,15 @@ public class StatsActivity extends ActionBarActivity {
         trash.setTitle("Trash");
         recycling.setTitle("Recycling");
         graph.setTitle("Stats for past 30 days");
+
+        trash.setDrawValuesOnTop(true);
+        trash.setValuesOnTopSize(30);
+        trash.setValuesOnTopColor(Color.RED);
+
+        recycling.setDrawValuesOnTop(true);
+        recycling.setValuesOnTopColor(Color.BLACK);
+        recycling.setValuesOnTopSize(30);
+
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
         //graph.setHorizontalScrollBarEnabled(true);
