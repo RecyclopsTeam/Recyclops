@@ -117,6 +117,7 @@ public class ScanActivity extends ActionBarActivity {
                             Product p = getProduct(result);
                             if (p != null) {
                                 Log.d(SCAN_TAG, p.toString());
+                                SavedPreferences.addProduct(p);
                             }
                         }
                     }
@@ -125,7 +126,7 @@ public class ScanActivity extends ActionBarActivity {
     }
 
     // Cast the product
-    public Product getProduct(Object result) {
+    public static Product getProduct(Object result) {
         Product product = null;
         try {
             product = (Product) result;

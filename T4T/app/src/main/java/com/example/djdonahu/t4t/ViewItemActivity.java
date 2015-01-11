@@ -1,9 +1,11 @@
 package com.example.djdonahu.t4t;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,10 +35,25 @@ public class ViewItemActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String UPC = intent.getStringExtra("UPC");
 
+        //Product product = null;
+        SavedPreferences.getInstance(this);
+        Log.e(UPC,UPC);
+        Product product = SavedPreferences.getProduct(UPC);
+        if(product == null) return;
+
         TextView UPCView = (TextView) findViewById(R.id.view_UPC);
         TextView nameView = (TextView) findViewById(R.id.view_product_name);
+        TextView packageRecycleableView = (TextView) findViewById(R.id.view_package_recycleable);
+        TextView contentsRecycleableView = (TextView) findViewById(R.id.view_contents_recycleable);
+        TextView packageMaterialView = (TextView) findViewById(R.id.view_package_material);
+        TextView contentsMaterialView = (TextView) findViewById(R.id.view_contents_material);
 
         UPCView.setText(UPC);
+        packageRecycleableView.setText((product.packageRecyclable() ? "Yes" : "No"));
+        contentsRecycleableView.setText((product.contentsRecyclable()  ? "Yes" : "No"));
+        packageMaterialView.setText(product.packaging_material);
+        contentsMaterialView.setText(product.contents_material);
+
     }
 
     @Override

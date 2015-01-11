@@ -24,6 +24,8 @@ public class Product {
     public String upc;
 
     public boolean packageRecyclable(){
+        if(packaging_material == null){ return false; };
+
         if(packaging_material.equals("plastic_1")) {
             return true;
         }
@@ -70,6 +72,8 @@ public class Product {
     }
 
     public boolean contentsRecyclable(){
+        if(packaging_material == null){ return false; };
+
         if(packaging_material.equals("plastic_1")) {
             return true;
         }

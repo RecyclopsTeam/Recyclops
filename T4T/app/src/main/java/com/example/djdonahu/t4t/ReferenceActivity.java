@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.*;
 import java.util.ArrayList;
+import java.util.Map;
 import android.os.Build;
 
 
@@ -32,6 +33,8 @@ public class ReferenceActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        SavedPreferences.getInstance(this);
+        generatePhonyList();
 
     }
 
@@ -39,11 +42,7 @@ public class ReferenceActivity extends ActionBarActivity {
     protected void onResume(){
         super.onResume();
 
-        ArrayList<ProductListItem> productItems = new ArrayList<ProductListItem>();
-        for(int i=0;i<12;i++) {
-            String size = i%2 == 0 ? "Even UPC" : "Odd UPC";
-            productItems.add(new ProductListItem("Butt", size));
-        }
+        ArrayList<ProductListItem> productItems = generateListFromSavedData();
         productAdapter = new ProductListAdapter(this,
                 R.layout.product_item, R.id.product_name, productItems, this);
 
@@ -51,6 +50,34 @@ public class ReferenceActivity extends ActionBarActivity {
         productlistView.setAdapter(productAdapter);
     }
 
+    private void generatePhonyList(){
+        String[] UPCs = {"0078000082401", "0000001215908", "0049000028904", "0071641010697"};
+        for(int i=0;i<UPCs.length;i++) {
+            String UPC = UPCs[i];
+            OutpanRequest.getProduct(
+                    UPC,
+                    new FetchUrlCallback() {
+                        @Override
+                        public void execute(Object result) {
+                            Product p = ScanActivity.getProduct(result);
+                            if (p != null) {
+                                Log.d("SCAN", p.toString());
+                                SavedPreferences.addProduct(p);
+                            }
+                        }
+                    }
+            );
+        }
+    }
+
+    private ArrayList<ProductListItem> generateListFromSavedData(){
+        ArrayList<ProductListItem> result = new ArrayList<ProductListItem>();
+        Map<String, Product> savedProducts = SavedPreferences.getSavedProductList();
+        for(Product value : savedProducts.values()){
+            result.add(new ProductListItem(value));
+        }
+        return result;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
