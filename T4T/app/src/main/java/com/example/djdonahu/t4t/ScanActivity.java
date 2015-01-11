@@ -77,6 +77,7 @@ public class ScanActivity extends ActionBarActivity {
 
     private void loadProductView(Product product)
     {
+        if (product == null) return;
         Context context = getApplicationContext();
         setContentView(R.layout.fragment_scan);
 
@@ -158,8 +159,40 @@ public class ScanActivity extends ActionBarActivity {
                 public void execute(Object result) {
                     Product p = OutpanRequest.castProduct(result);
                     if (p != null) {
-                        loadProductView(p);
-                        Log.d(SCAN_TAG, p.toString());
+                        if (p.error != null && p.error.containsKey("code"))
+                        {
+                            String code = p.error.get("code");
+                            setContentView(R.layout.scan_error);
+                            TextView error_text = (TextView) findViewById(R.id.scan_error_text);
+
+                            CharSequence error_msg = "There was a problem scanning your item.";
+                            if ( code == "210" )
+                            {
+                                error_msg = "A barcode is required.";
+
+                            }
+                            else if ( code == "120" )
+                            {
+                                error_msg = "There was a problem accessing the item database.";
+
+                            }
+                            else if ( code == "420" )
+                            {
+                                error_msg = "Something went horribly wrong. I shouldn't even be here today.";
+
+                            } else if ( code == "T4T_NOT_FOUND") {
+                                error_msg = "Item not found in database";
+                            }
+
+                            error_text.setText(error_msg);
+
+                        }
+                        else
+                        {
+                            loadProductView(p);
+                            Log.d(SCAN_TAG, p.toString());
+
+                        }
                     }
                 }
             }

@@ -26,22 +26,32 @@ public class Product {
     @SerializedName("contents_size")
     public String contents_size = "No material size found";
 
+    @SerializedName("error")
+    public HashMap<String,String> error;
+
     @SerializedName("barcode")
     public String upc;
 
     @SerializedName("images")
     public ArrayList<String> images;
 
-    public void initialize() {
-        String packaging_material_arg = attributes.get("packaging_material");
-        String packaging_size_arg = attributes.get("packaging_size");
-        String contents_material_arg = attributes.get("contents_material");
-        String contents_size_arg = attributes.get("contents_size");
-        packaging_material = packaging_material_arg.isEmpty() ? "N/A" : packaging_material_arg;
-        packaging_size = packaging_size_arg.isEmpty() ? "N/A" : packaging_size_arg;
-        contents_material = contents_material_arg.isEmpty() ? "N/A" : contents_material_arg;
-        contents_size = contents_size_arg.isEmpty() ? "N/A" : contents_size_arg;
-
+    public Product initialize() {
+        if (error != null && error.containsKey("code")) {
+            // Error encountered, bail! We'll handle this later.
+            return this;
+        }
+        // Return an error
+        if (product_name == null) {
+            return errorProductNotFound();
+        }
+        packaging_material = attributes.get("packaging_material");
+        packaging_size = attributes.get("packaging_size");
+        if (packaging_material == null || packaging_size == null) {
+            return errorProductNotFound();
+        }
+        contents_material = attributes.get("contents_material");
+        contents_size = attributes.get("contents_size");
+        return this;
     }
 
     public boolean packageRecyclable(){
@@ -138,6 +148,13 @@ public class Product {
             return false;
         }
         return false;
+    }
+
+    private static Product errorProductNotFound() {
+        Product p = new Product();
+        p.error = new HashMap<String, String>();
+        p.error.put("code", "T4T_NOT_FOUND");
+        return p;
     }
 
     @Override
