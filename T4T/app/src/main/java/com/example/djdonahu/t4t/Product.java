@@ -183,4 +183,12 @@ public class Product {
     public String toString() {
         return product_name+", pack: "+packaging_material+", size: "+packaging_size;
     }
+
+    public boolean hasPackaging(){
+        return (packaging_material != "N/A") && (packaging_size != "No material size found");
+    }
+
+    public boolean hasContents(){
+        return (contents_material != "N/A") && (contents_size != "No material size found");
+    }
 }
