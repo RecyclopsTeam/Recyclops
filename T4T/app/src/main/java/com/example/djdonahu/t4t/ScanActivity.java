@@ -159,8 +159,16 @@ public class ScanActivity extends ActionBarActivity {
                 public void execute(Object result) {
                     Product p = OutpanRequest.castProduct(result);
                     if (p != null) {
-                        loadProductView(p);
-                        Log.d(SCAN_TAG, p.toString());
+                        if ( p.error.containsKey("code"))
+                        {
+
+                        }
+                        else
+                        {
+                            loadProductView(p);
+                            Log.d(SCAN_TAG, p.toString());
+
+                        }
                     }
                 }
             }
