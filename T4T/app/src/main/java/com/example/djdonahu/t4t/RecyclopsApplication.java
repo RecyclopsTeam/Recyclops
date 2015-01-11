@@ -6,8 +6,6 @@ import android.content.Context;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
-
-// hey I did stuff, GitHub give me credit pls
 public class RecyclopsApplication extends Application {
 
     private static Context c;
