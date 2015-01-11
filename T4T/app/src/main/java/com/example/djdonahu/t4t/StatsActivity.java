@@ -37,6 +37,7 @@ public class StatsActivity extends ActionBarActivity {
     public Map<Date,Integer> dayWasteTotal = new HashMap<Date,Integer>();
     public Map<Date,Integer> dayRecycleTotal = new HashMap<Date, Integer>();
 
+    public GraphStats graphStats;
 
 
     @Override
@@ -77,6 +78,12 @@ public class StatsActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        Log.e("HMM", "good herE?!!!");
+        StatTracker.getInstance(this);
+        graphStats = StatTracker.getGraphData();
+
+        Log.e("w", "w");
     }
 
     public DataPoint[] returnInfo(Map name){
@@ -106,34 +113,35 @@ public class StatsActivity extends ActionBarActivity {
 
         Log.e("ARRAY", wasteData[0].toString());
 
-        BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(wasteData);
-        BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(recycleData);
+        BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
+        BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
 
-        staticLabelsFormatter.setHorizontalLabels(new String[] {"old","tree", "middle", "new","same","help"});
-        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        staticLabelsFormatter.setHorizontalLabels(graphStats.labels);
+        //graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
 
 
-        trash.setSpacing(20);
+        trash.setSpacing(10);
+        recycling.setSpacing(10);
         graph.addSeries(trash);
         trash.setColor(Color.BLUE);
-        graph.setMinimumHeight(0);
-        graph.getViewport().setScrollable(true);
-        graph.setHorizontalScrollBarEnabled(true);
 
 
-
-
-        //graph.addSeries(recycling);
-        //recycling.setColor(Color.YELLOW);
+        graph.addSeries(recycling);
+        recycling.setColor(Color.YELLOW);
 
 
         trash.setTitle("Trash");
-        //recycling.setTitle("Recycling");
-        graph.setTitle("Poopdik");
-
+        recycling.setTitle("Recycling");
+        graph.setTitle("Stats for past 30 days");
+        graph.setMinimumHeight(0);
+        graph.getViewport().setScrollable(true);
+        //graph.setHorizontalScrollBarEnabled(true);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0.5);
+        graph.getViewport().setMaxX(7);
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
