@@ -3,6 +3,8 @@ package com.example.djdonahu.t4t;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Product {
 
     @SerializedName("name")
@@ -22,6 +24,9 @@ public class Product {
 
     @SerializedName("barcode")
     public String upc;
+
+    @SerializedName("images")
+    public ArrayList<String> images;
 
     public boolean packageRecyclable(){
         switch (packaging_material) {

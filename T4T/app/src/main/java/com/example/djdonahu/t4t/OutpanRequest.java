@@ -49,6 +49,18 @@ public class OutpanRequest
 
     }
 
+
+    public static void cancelRequest()
+    {
+        if ( currRequest != null )
+        {
+            System.out.println( "ATTEMPT CANCEL" );
+            currRequest.cancel( true );
+
+        }
+    }
+
+
     private static void request(RequestType type, String args, FetchUrlCallback callback)
     {
         StringBuilder urlStr = new StringBuilder(gatewayUrl);
