@@ -32,11 +32,19 @@ public class Product {
     @SerializedName("images")
     public ArrayList<String> images;
 
-    public void initialize() {
+    public Product initialize() {
+        // null out the product if there isn't at least a name
+        if (product_name == null) {
+            return null;
+        }
         packaging_material = attributes.get("packaging_material");
         packaging_size = attributes.get("packaging_size");
+        if (packaging_material == null || packaging_size == null) {
+            return null;
+        }
         contents_material = attributes.get("contents_material");
         contents_size = attributes.get("contents_size");
+        return this;
     }
 
     public boolean packageRecyclable(){
