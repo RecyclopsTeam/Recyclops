@@ -11,7 +11,7 @@ import com.google.gson.JsonParseException;
 
 public class SavedPreferences {
 
-    private static final String SAVED_PREFS = "EdibilityPreferences";
+    private static final String SAVED_PREFS = "RecyclopsPreferences";
     private static final String STORED_GSON = "GsonData";
 
     private static SavedPreferences instance = null;
