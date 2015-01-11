@@ -82,7 +82,7 @@ public class ScanActivity extends ActionBarActivity {
 
     }
 
-    private void loadProductView(Product product)
+    private void loadProductView(final Product product)
     {
         if (product == null) return;
 
@@ -91,6 +91,17 @@ public class ScanActivity extends ActionBarActivity {
 
         TextView title = (TextView) findViewById(R.id.item_name);
         title.setText((CharSequence) product.product_name);
+
+        TextView UPCView = (TextView) findViewById(R.id.view_UPC);
+        UPCView.setText(product.upc);
+        TextView packageRecyclableView = (TextView) findViewById(R.id.view_package_recyclable);
+        packageRecyclableView.setText((product.packageRecyclable() ? "Yes" : "No"));
+        TextView contentsRecyclableView = (TextView) findViewById(R.id.view_contents_recyclable);
+        contentsRecyclableView.setText((product.contentsRecyclable() ? "Yes" : "No"));
+        TextView packageMaterialView = (TextView) findViewById(R.id.view_package_material);
+        packageMaterialView.setText(product.packaging_material);
+        TextView contentsMaterialView = (TextView) findViewById(R.id.view_contents_material);
+        contentsMaterialView.setText(product.contents_material);
 
         //point our View variables to the id that they correspond to
         purchasedButton = (Button) findViewById(R.id.purchased_button);
@@ -110,8 +121,8 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Item stored, returning to scanner", Toast.LENGTH_SHORT);
-                toast.show();
+                SavedPreferences.getInstance().addProduct(product);
+                scanAgain(v);
             }
         });
 
@@ -120,8 +131,6 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Item discarded, returning to scanner", Toast.LENGTH_SHORT);
-                toast.show();
                 scanAgain(v);
             }
         });
@@ -131,6 +140,7 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
+                SavedPreferences.getInstance().addProduct(product);
                 Intent intent = new Intent(ScanActivity.this, StartActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

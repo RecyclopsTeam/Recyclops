@@ -36,7 +36,6 @@ public class ViewItemActivity extends ActionBarActivity {
         String UPC = intent.getStringExtra("UPC");
 
         //Product product = null;
-        SavedPreferences.getInstance(this);
         Log.e(UPC,UPC);
         Product product = SavedPreferences.getProduct(UPC);
         if(product == null) return;
