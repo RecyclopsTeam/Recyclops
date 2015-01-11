@@ -12,8 +12,7 @@
         android:id="@+id/item_image"
         android:src="@drawable/coca_cola"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/purchased_button"
-        android:layout_alignStart="@+id/purchased_button" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,40 +20,172 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Coca-Cola 12 Pack 12 FL OZ Cans"
         android:id="@+id/item_name"
-        android:layout_below="@+id/item_image"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Purchased, Continue Scanning"
+        android:text="Purchased"
         android:id="@+id/purchased_button"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/item_name"
+        android:layout_alignBaseline="@+id/nope_button"
+        android:layout_alignBottom="@+id/nope_button"
+        android:layout_alignLeft="@+id/item_name"
+        android:layout_alignStart="@+id/item_name" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try Again"
+        android:id="@+id/nope_button"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nope, Try Again"
-        android:id="@+id/nope_button"
-        android:layout_below="@+id/purchased_button"
-        android:layout_alignLeft="@+id/purchased_button"
-        android:layout_alignStart="@+id/purchased_button"
-        android:layout_alignRight="@+id/purchased_button"
-        android:layout_alignEnd="@+id/purchased_button" />
+        android:text="Exit"
+        android:id="@+id/cancel_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tableLayout"
+        android:layout_alignEnd="@+id/tableLayout" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop Scanning"
-        android:id="@+id/cancel_button"
-        android:layout_below="@+id/nope_button"
-        android:layout_alignLeft="@+id/purchased_button"
-        android:layout_alignStart="@+id/purchased_button"
-        android:layout_alignRight="@+id/purchased_button"
-        android:layout_alignEnd="@+id/purchased_button" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="UPC"
+        android:id="@+id/view_UPC"
+        android:layout_below="@+id/item_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/view_UPC"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/purchased_button"
+        android:id="@+id/tableLayout">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Package Material: "
+                android:id="@+id/view_package_label"
+                android:layout_column="0"
+                android:layout_span="6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="none"
+                android:id="@+id/view_package_material"
+                android:layout_column="6" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Contents Material: "
+                android:id="@+id/view_contents_label"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="none"
+                android:id="@+id/view_contents_material"
+                android:layout_column="6" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Package Recyclable: "
+                android:id="@+id/view_package_recyclable_label"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="No"
+                android:id="@+id/view_package_recyclable"
+                android:layout_column="6" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Contents Recyclable: "
+                android:id="@+id/view_contents_recyclable_label"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="No"
+                android:id="@+id/view_contents_recyclable"
+                android:layout_column="6" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+    </TableLayout>
 
 
 </RelativeLayout>

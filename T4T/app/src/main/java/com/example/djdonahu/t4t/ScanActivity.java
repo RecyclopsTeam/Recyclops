@@ -92,6 +92,17 @@ public class ScanActivity extends ActionBarActivity {
         TextView title = (TextView) findViewById(R.id.item_name);
         title.setText((CharSequence) product.product_name);
 
+        TextView UPCView = (TextView) findViewById(R.id.view_UPC);
+        UPCView.setText(product.upc);
+        TextView packageRecyclableView = (TextView) findViewById(R.id.view_package_recyclable);
+        packageRecyclableView.setText((product.packageRecyclable() ? "Yes" : "No"));
+        TextView contentsRecyclableView = (TextView) findViewById(R.id.view_contents_recyclable);
+        contentsRecyclableView.setText((product.contentsRecyclable() ? "Yes" : "No"));
+        TextView packageMaterialView = (TextView) findViewById(R.id.view_package_material);
+        packageMaterialView.setText(product.packaging_material);
+        TextView contentsMaterialView = (TextView) findViewById(R.id.view_contents_material);
+        contentsMaterialView.setText(product.contents_material);
+
         //point our View variables to the id that they correspond to
         purchasedButton = (Button) findViewById(R.id.purchased_button);
         nopeButton = (Button) findViewById(R.id.nope_button);
