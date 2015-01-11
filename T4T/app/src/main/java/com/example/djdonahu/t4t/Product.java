@@ -2,6 +2,7 @@ package com.example.djdonahu.t4t;
 
 
 import com.google.gson.annotations.SerializedName;
+import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,27 @@ public class Product {
 
     @SerializedName("images")
     public ArrayList<String> images;
+
+    public String image_url;
+
+    public Product()
+    {
+
+    }
+
+    public Product(ParseObject p)
+    {
+        product_name = p.getString("product_name");
+        packaging_material = p.getString("packaging_material");
+        packaging_size = p.getString("packaging_size");
+        contents_material = p.getString("contents_material");
+        contents_size = p.getString("contents_size");
+        upc = p.getString("upc");
+        image_url = p.getString("image_url");
+
+        // grab ParseImage object as well
+
+    }
 
     public Product initialize() {
         if (error != null && error.containsKey("code")) {
