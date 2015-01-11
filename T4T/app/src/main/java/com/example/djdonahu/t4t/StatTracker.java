@@ -28,20 +28,21 @@ public class StatTracker {
     private static SimpleDateFormat fmt = new SimpleDateFormat("MMM/dd/yyyy");
     private static SimpleDateFormat label_fmt = new SimpleDateFormat("MM/dd");
 
+    private static final HashMap<String, Integer> weightValues;
+    static
+    {
+        weightValues = new HashMap<String, Integer>();
+        weightValues.put("tiny", 1);
+        weightValues.put("small", 3);
+        weightValues.put("medium_small", 6);
+        weightValues.put("medium", 10);
+        weightValues.put("medium_large", 15);
+        weightValues.put("large", 25);
+        weightValues.put("huge", 50);
+    }
 
     public Tracker_Map tracker_data;
     private SharedPreferences settings = null;
-
-    public class DailyData{
-        public float recyling_total = 0;
-        public float trash_total = 0;
-
-
-        public DailyData(float trash, float recycling) {
-            this.recyling_total = recycling;
-            this.trash_total = trash;
-        }
-    }
 
     public class Tracker_Map {
         public HashMap<String, DailyData> tracker_data;
@@ -63,13 +64,13 @@ public class StatTracker {
                 // Right now just tosses old saved data
                 Log.e(SAVED_PREFS, "JSON Exception in saved preferences");
             }
-            if (tracker_data == null || tracker_data.tracker_data == null) {
-                tracker_data = new Tracker_Map();
-                generatePhonyData(tracker_data);
-                Log.i(SAVED_PREFS, "Unable to load preferences");
-            }
         } else {
             Log.e(SAVED_PREFS, "Settings not initialized, call getInstance(context) first");
+        }
+        if (tracker_data == null || tracker_data.tracker_data == null) {
+            tracker_data = new Tracker_Map();
+            generatePhonyData(tracker_data);
+            Log.i(SAVED_PREFS, "Unable to load preferences");
         }
     }
 
@@ -104,21 +105,49 @@ public class StatTracker {
     }
 
     public static void addStats(GregorianCalendar day, float trash, float recycling){
-        DailyData sumsSoFar = getInstance().tracker_data.tracker_data.get(day);
+
+        DailyData sumsSoFar = getInstance().tracker_data.tracker_data.get(format(day));
+        if(sumsSoFar == null){
+            sumsSoFar = new DailyData(0,0);
+        }
         sumsSoFar.trash_total += trash;
         sumsSoFar.recyling_total += recycling;
-        getInstance().tracker_data.tracker_data.get(day);
+        getInstance().tracker_data.tracker_data.put(format(day), sumsSoFar);
         //getInstance().commitToPrefs();
     }
 
+    //Adds stats for today
     public static void addStats(float trash, float recycling){
         GregorianCalendar currentDate = new GregorianCalendar();
         addStats(currentDate, trash, recycling);
     }
 
+    public static void addStats(Product product){
+        float recycling = 0;
+        float trash = 0;
+        float contentWeight = weightValues.get(product.contents_size);
+        float packagingWeight = weightValues.get(product.packaging_size);
+
+        if(product.hasPackaging()) {
+            if (product.contentsRecyclable()) {
+                recycling += contentWeight;
+            } else {
+                trash += contentWeight;
+            }
+        }
+        if(product.hasContents()) {
+            if (product.packageRecyclable()) {
+                recycling += packagingWeight;
+            } else {
+                trash += packagingWeight;
+            }
+        }
+        addStats(trash, recycling);
+    }
+
     public static GraphStats getGraphData(GregorianCalendar start, GregorianCalendar end){
         long diff = start.getTimeInMillis() - end.getTimeInMillis();
-        int numDays = (int) (diff / (24 * 60 * 60 * 1000));
+        int numDays = (int) (diff / (24 * 60 * 60 * 1000))+1;
 
         Log.d("Mem", "size: "+numDays);
 

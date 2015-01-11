@@ -150,11 +150,11 @@ public class StatsActivity extends ActionBarActivity {
         graph.setTitle("Stats for past 30 days");
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
-        graph.getViewport().setScalable(true);
         //graph.setHorizontalScrollBarEnabled(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10);
+        graph.getViewport().scrollToEnd();
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 

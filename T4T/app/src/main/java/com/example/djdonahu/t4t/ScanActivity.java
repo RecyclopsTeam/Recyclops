@@ -122,6 +122,7 @@ public class ScanActivity extends ActionBarActivity {
             public void onClick(View v)
             {
                 SavedPreferences.getInstance().addProduct(product);
+                StatTracker.addStats(product);
                 scanAgain(v);
             }
         });
