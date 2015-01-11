@@ -157,10 +157,6 @@ public class StatsActivity extends ActionBarActivity {
         trash.setValuesOnTopSize(30);
         trash.setValuesOnTopColor(Color.BLACK);
 
-        recycling.setDrawValuesOnTop(true);
-        recycling.setValuesOnTopColor(Color.WHITE);
-        recycling.setValuesOnTopSize(30);
-
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
         //graph.setHorizontalScrollBarEnabled(true);
