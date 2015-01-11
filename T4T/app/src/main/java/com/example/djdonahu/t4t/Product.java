@@ -12,7 +12,7 @@ public class Product {
     public String product_name;
 
     @SerializedName("packaging_material")
-    public String packaging_material = "No materials";
+    public String packaging_material = "N/A";
 
     @SerializedName("attributes")
     public HashMap<String,String> attributes;
@@ -21,7 +21,7 @@ public class Product {
     public String packaging_size = "No material size found";
 
     @SerializedName("contents_material")
-    public String contents_material = "No materials";
+    public String contents_material = "N/A";
 
     @SerializedName("contents_size")
     public String contents_size = "No material size found";
@@ -33,10 +33,15 @@ public class Product {
     public ArrayList<String> images;
 
     public void initialize() {
-        packaging_material = attributes.get("packaging_material");
-        packaging_size = attributes.get("packaging_size");
-        contents_material = attributes.get("contents_material");
-        contents_size = attributes.get("contents_size");
+        String packaging_material_arg = attributes.get("packaging_material");
+        String packaging_size_arg = attributes.get("packaging_size");
+        String contents_material_arg = attributes.get("contents_material");
+        String contents_size_arg = attributes.get("contents_size");
+        packaging_material = packaging_material_arg.isEmpty() ? "N/A" : packaging_material_arg;
+        packaging_size = packaging_size_arg.isEmpty() ? "N/A" : packaging_size_arg;
+        contents_material = contents_material_arg.isEmpty() ? "N/A" : contents_material_arg;
+        contents_size = contents_size_arg.isEmpty() ? "N/A" : contents_size_arg;
+
     }
 
     public boolean packageRecyclable(){

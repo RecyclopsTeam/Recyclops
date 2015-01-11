@@ -55,6 +55,7 @@ public class ViewItemActivity extends ActionBarActivity {
         contentsRecycleableView.setText((product.contentsRecyclable()  ? "Yes" : "Nope"));
         packageMaterialView.setText(product.packaging_material);
         contentsMaterialView.setText(product.contents_material);
+        nameView.setText(product.product_name);
 
     }
 
