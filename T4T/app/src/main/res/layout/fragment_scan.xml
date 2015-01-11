@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.djdonahu.t4t.ScanActivity$PlaceholderFragment">
+    tools:context="com.example.djdonahu.t4t.ScanActivity$PlaceholderFragment"
+    android:background="#86e3f0">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -20,36 +21,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Coca-Cola 12 Pack 12 FL OZ Cans"
         android:id="@+id/item_name"
+        style="@style/product_name"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Purchased"
-        android:id="@+id/purchased_button"
-        android:layout_alignBaseline="@+id/nope_button"
-        android:layout_alignBottom="@+id/nope_button"
-        android:layout_alignLeft="@+id/item_name"
-        android:layout_alignStart="@+id/item_name" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Try Again"
-        android:id="@+id/nope_button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Exit"
-        android:id="@+id/cancel_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/tableLayout"
-        android:layout_alignEnd="@+id/tableLayout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,9 +33,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="UPC"
         android:id="@+id/view_UPC"
+        style="@style/product_upc"
         android:layout_below="@+id/item_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -67,8 +43,9 @@
         android:layout_below="@+id/view_UPC"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/purchased_button"
-        android:id="@+id/tableLayout">
+        android:layout_above="@+id/button_layout"
+        android:id="@+id/tableLayout"
+        android:background="#59b6c2">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -86,6 +63,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Package Material: "
                 android:id="@+id/view_package_label"
+                style="@style/info_text"
                 android:layout_column="0"
                 android:layout_span="6" />
 
@@ -95,6 +73,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="none"
                 android:id="@+id/view_package_material"
+                style="@style/info_text"
                 android:layout_column="6" />
 
         </TableRow>
@@ -109,6 +88,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Contents Material: "
                 android:id="@+id/view_contents_label"
+                style="@style/info_text"
                 android:layout_column="0" />
 
             <TextView
@@ -117,6 +97,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="none"
                 android:id="@+id/view_contents_material"
+                style="@style/info_text"
                 android:layout_column="6" />
         </TableRow>
 
@@ -130,6 +111,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Package Recyclable: "
                 android:id="@+id/view_package_recyclable_label"
+                style="@style/info_text"
                 android:layout_column="0" />
 
             <TextView
@@ -138,6 +120,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="No"
                 android:id="@+id/view_package_recyclable"
+                style="@style/info_text"
                 android:layout_column="6" />
         </TableRow>
 
@@ -151,6 +134,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Contents Recyclable: "
                 android:id="@+id/view_contents_recyclable_label"
+                style="@style/info_text"
                 android:layout_column="0" />
 
             <TextView
@@ -159,6 +143,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="No"
                 android:id="@+id/view_contents_recyclable"
+                style="@style/info_text"
                 android:layout_column="6" />
         </TableRow>
 
@@ -186,6 +171,49 @@
 
         </TableRow>
     </TableLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:id="@+id/button_layout">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purchased"
+            android:id="@+id/purchased_button"
+            android:background="@drawable/red_button"
+            style="@style/button_text"
+            android:textSize="16dp"
+            android:layout_alignBaseline="@+id/nope_button"
+            android:layout_alignBottom="@+id/nope_button"
+            android:layout_alignLeft="@+id/item_name"
+            android:layout_alignStart="@+id/item_name" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Try Again"
+            android:id="@+id/nope_button"
+            android:background="@drawable/red_button"
+            style="@style/button_text"
+            android:textSize="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:id="@+id/cancel_button"
+            android:background="@drawable/red_button"
+            style="@style/button_text"
+            android:textSize="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/tableLayout"
+            android:layout_alignEnd="@+id/tableLayout" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
