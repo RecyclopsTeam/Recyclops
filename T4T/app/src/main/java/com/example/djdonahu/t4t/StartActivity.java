@@ -57,6 +57,7 @@ public class StartActivity extends ActionBarActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(StartActivity.this, ScanActivity.class);
+                intent.putExtra("startScanning", true);
                 startActivity(intent);
             }
         });
