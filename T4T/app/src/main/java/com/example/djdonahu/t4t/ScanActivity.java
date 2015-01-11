@@ -159,7 +159,7 @@ public class ScanActivity extends ActionBarActivity {
                 public void execute(Object result) {
                     Product p = OutpanRequest.castProduct(result);
                     if (p != null) {
-                        if ( p.error.containsKey("code"))
+                        if (p.error != null && p.error.containsKey("code"))
                         {
                             String code = p.error.get("code");
                             setContentView(R.layout.scan_error);
@@ -180,6 +180,8 @@ public class ScanActivity extends ActionBarActivity {
                             {
                                 error_msg = "Something went horribly wrong. I shouldn't even be here today.";
 
+                            } else if ( code == "T4T_NOT_FOUND") {
+                                error_msg = "Item not found in database";
                             }
 
                             error_text.setText(error_msg);

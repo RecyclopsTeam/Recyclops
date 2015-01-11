@@ -35,11 +35,23 @@ public class Product {
     @SerializedName("images")
     public ArrayList<String> images;
 
-    public void initialize() {
+    public Product initialize() {
+        if (error != null && error.containsKey("code")) {
+            // Error encountered, bail! We'll handle this later.
+            return this;
+        }
+        // Return an error
+        if (product_name == null) {
+            return errorProductNotFound();
+        }
         packaging_material = attributes.get("packaging_material");
         packaging_size = attributes.get("packaging_size");
+        if (packaging_material == null || packaging_size == null) {
+            return errorProductNotFound();
+        }
         contents_material = attributes.get("contents_material");
         contents_size = attributes.get("contents_size");
+        return this;
     }
 
     public boolean packageRecyclable(){
@@ -136,6 +148,13 @@ public class Product {
             return false;
         }
         return false;
+    }
+
+    private static Product errorProductNotFound() {
+        Product p = new Product();
+        p.error = new HashMap<String, String>();
+        p.error.put("code", "T4T_NOT_FOUND");
+        return p;
     }
 
     @Override

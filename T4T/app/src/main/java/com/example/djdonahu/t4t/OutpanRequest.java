@@ -49,7 +49,8 @@ public class OutpanRequest
         try {
             if ( result != null ) {
                 product = (Product) result;
-                product.initialize();
+                // The initialization step could null out the product for invalid data
+                product = product.initialize();
             } else {
                 product = null;
             }
