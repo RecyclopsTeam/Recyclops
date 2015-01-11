@@ -1,27 +1,76 @@
 package com.example.djdonahu.t4t;
 
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.jjoe64.graphview.*;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.os.Build;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 public class StatsActivity extends ActionBarActivity {
+
+    public Map<Date,Integer> dayWasteTotal = new HashMap<Date,Integer>();
+    public Map<Date,Integer> dayRecycleTotal = new HashMap<Date, Integer>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dayWasteTotal.put(RandomDay(2014,11,6),23);
+        dayWasteTotal.put(RandomDay(2014,11,7),54);
+        dayWasteTotal.put(RandomDay(2014,11,8),61);
+
+        dayWasteTotal.put(RandomDay(2014,11,9),42);
+        dayWasteTotal.put(RandomDay(2014,11,10),68);
+        dayWasteTotal.put(RandomDay(2014,11,11),53);
+
+        dayWasteTotal.put(RandomDay(2014,11,9),42);
+        dayWasteTotal.put(RandomDay(2014,11,10),68);
+        dayWasteTotal.put(RandomDay(2014,11,11),53);
+
+        dayWasteTotal.put(RandomDay(2014,11,9),42);
+        dayWasteTotal.put(RandomDay(2014,11,10),68);
+        dayWasteTotal.put(RandomDay(2014,11,11),53);
+
+        dayWasteTotal.put(RandomDay(2014,11,9),42);
+        dayWasteTotal.put(RandomDay(2014,11,10),68);
+        dayWasteTotal.put(RandomDay(2014,11,11),53);
+
+        dayRecycleTotal.put(RandomDay(2014,12,4),37);
+        dayRecycleTotal.put(RandomDay(2014,12,16),33);
+        dayRecycleTotal.put(RandomDay(2014,12,25),48);
+
+        dayRecycleTotal.put(RandomDay(2014,11,6),6);
+        dayRecycleTotal.put(RandomDay(2014,11,17),24);
+        dayRecycleTotal.put(RandomDay(2014,11,28),21);
+
         setContentView(R.layout.activity_stats);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -30,18 +79,64 @@ public class StatsActivity extends ActionBarActivity {
         }
     }
 
+    public DataPoint[] returnInfo(Map name){
+        DataPoint[] bar = null;
+        ArrayList<DataPoint> tmpList = new ArrayList<DataPoint>();
+        int i = 0;
+        for(Map.Entry<Date,Integer> entry: dayWasteTotal.entrySet()){
+
+            Date day = entry.getKey();
+            int value = entry.getValue();
+            DataPoint dataPoint = new DataPoint(i,value);
+            Log.e("POINT", dataPoint.toString());
+            tmpList.add(dataPoint);
+            bar = tmpList.toArray(new DataPoint[tmpList.size()]);
+            i++;
+        }
+        return bar;
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
+
+        DataPoint[] wasteData = returnInfo(dayWasteTotal);
+        DataPoint[] recycleData = returnInfo(dayRecycleTotal);
+
+        Log.e("ARRAY", wasteData[0].toString());
+
+        BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(wasteData);
+        BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(recycleData);
+
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"old","tree", "middle", "new","same","help"});
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+
+
+        trash.setSpacing(20);
+        graph.addSeries(trash);
+        trash.setColor(Color.BLUE);
+        graph.setMinimumHeight(0);
+        graph.getViewport().setScrollable(true);
+        graph.setHorizontalScrollBarEnabled(true);
+
+
+
+
+        //graph.addSeries(recycling);
+        //recycling.setColor(Color.YELLOW);
+
+
+        trash.setTitle("Trash");
+        //recycling.setTitle("Recycling");
+        graph.setTitle("Poopdik");
+
+        graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+
     }
 
     @Override
@@ -66,6 +161,7 @@ public class StatsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -80,5 +176,9 @@ public class StatsActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
             return rootView;
         }
+    }
+    public static Date RandomDay(int year,int month,int day){
+        Calendar newCalendar = new GregorianCalendar(year,month,day);
+        return newCalendar.getTime();
     }
 }
