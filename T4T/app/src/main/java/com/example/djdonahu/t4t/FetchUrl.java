@@ -1,6 +1,8 @@
 package com.example.djdonahu.t4t;
 
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -15,27 +17,32 @@ public class FetchUrl
     {
         StringBuilder pageContents = new StringBuilder();
         String s;
-
-        try
-        {
+        try {
             this.url = new URL(urlStr);
             InputStream inputStream;
             inputStream = this.url.openStream();
 
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(inputStream));
+            while ((s = dataInputStream.readLine()) != null) {
+                pageContents.append(s);
+
+            }
         }
-        catch (UnknownHostException uhe)
+        catch ( UnknownHostException e )
         {
-            // Should probably deal with this error. Not now! (Stretch goal?)
-            System.err.println("Could not reach hostname.");
+            System.err.println( "Could not reach hostname" );
+
 
         }
-        catch(MalformedURLException mue)
+        catch ( MalformedURLException me )
         {
-            mue.printStackTrace();
+            // TODO: Change this to actually catch this.
+            me.printStackTrace();
 
         }
-        catch (IOException ioe)
+        catch ( IOException ioe )
         {
+            // TODO: Change this to something good.
             ioe.printStackTrace();
 
         }
