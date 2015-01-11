@@ -15,11 +15,17 @@ import android.os.Build;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.*;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class ScanActivity extends ActionBarActivity {
 
     private TextView scanResults;
+    // initialize View variables (TextViews, ListViews, Buttons, etc)
+    private Button purchasedButton;
+    private Button nopeButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,48 @@ public class ScanActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        scanResults = (TextView) findViewById(R.id.scanResult);
+
+        //point our View variables to the id that they correspond to
+        purchasedButton = (Button) findViewById(R.id.purchased_button);
+        nopeButton = (Button) findViewById(R.id.nope_button);
+        cancelButton = (Button) findViewById(R.id.cancel_button);
+
+
+        //define the behaviors for when each button is clicked.
+        purchasedButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
+//                startActivity(intent);
+                Toast toast = Toast.makeText(getApplicationContext(), "Item stored, returning to scanner", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        nopeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
+//                startActivity(intent);
+                Toast toast = Toast.makeText(getApplicationContext(), "Item discarded, returning to scanner", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     // Returning from scan app
@@ -55,7 +102,7 @@ public class ScanActivity extends ActionBarActivity {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             // handle scan result
-            if (scanResults != null) {
+            if (scanResult != null) {
                 scanResults.setText(scanResult.toString());
             }
         }
