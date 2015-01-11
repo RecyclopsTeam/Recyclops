@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 public class ScanActivity extends ActionBarActivity {
 
+    private static String SCAN_TAG = "T4T_SCAN";
+
     private TextView scanResults;
     // initialize View variables (TextViews, ListViews, Buttons, etc)
     private Button purchasedButton;
@@ -64,8 +66,6 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
-//                startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(), "Item stored, returning to scanner", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -76,10 +76,9 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
-//                startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(), "Item discarded, returning to scanner", Toast.LENGTH_SHORT);
                 toast.show();
+                scanAgain(v);
             }
         });
 
@@ -102,9 +101,14 @@ public class ScanActivity extends ActionBarActivity {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             // handle scan result
-            if (scanResult != null) {
-                scanResults.setText(scanResult.toString());
+            String format = scanResult.getFormatName();
+            if (!format.equals("UPC_A")) {
+                Log.w(SCAN_TAG, "Possibly unsupported UPC type " + format);
             }
+            String upc = scanResult.getContents();
+            Log.d(SCAN_TAG, "UPC: " + upc);
+            // To the internet!
+            // TODO: Go to the internet
         }
     }
 
