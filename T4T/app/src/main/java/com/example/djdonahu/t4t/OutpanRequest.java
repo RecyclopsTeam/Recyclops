@@ -47,10 +47,12 @@ public class OutpanRequest
     {
         Product product = null;
         try {
-            if ( result != null )
+            if ( result != null ) {
                 product = (Product) result;
-            else
+                product.initialize();
+            } else {
                 product = null;
+            }
 
         }
         catch (Exception e)
