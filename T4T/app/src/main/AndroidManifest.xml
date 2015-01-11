@@ -49,6 +49,11 @@
             android:label="@string/title_activity_scan" >
         </activity>
         <activity
+            android:name=".ViewItemActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_scan" >
+        </activity>
+        <activity
             android:name=".SearchReferenceActivity"
             android:label="@string/title_activity_search_reference"
             android:parentActivityName=".ReferenceActivity" >
