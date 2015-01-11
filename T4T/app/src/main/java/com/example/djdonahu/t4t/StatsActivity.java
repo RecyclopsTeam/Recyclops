@@ -111,7 +111,6 @@ public class StatsActivity extends ActionBarActivity {
         //DataPoint[] wasteData = returnInfo(dayWasteTotal);
         //DataPoint[] recycleData = returnInfo(dayRecycleTotal);
 
-        //Log.e("ARRAY", wasteData[0].toString());
 
         BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
         BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);
@@ -154,13 +153,23 @@ public class StatsActivity extends ActionBarActivity {
         trash.setTitle("Trash");
         recycling.setTitle("Recycling");
         graph.setTitle("Stats for past 30 days");
+
+        trash.setDrawValuesOnTop(true);
+        trash.setValuesOnTopSize(30);
+        trash.setValuesOnTopColor(Color.RED);
+
+        recycling.setDrawValuesOnTop(true);
+        recycling.setValuesOnTopColor(Color.BLACK);
+        recycling.setValuesOnTopSize(30);
+
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
-        graph.getViewport().setScalable(true);
+        graph.getViewport().scrollToEnd();
         //graph.setHorizontalScrollBarEnabled(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10);
+        graph.getViewport().scrollToEnd();
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
