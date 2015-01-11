@@ -77,6 +77,7 @@ public class ScanActivity extends ActionBarActivity {
 
     private void loadProductView(Product product)
     {
+        if (product == null) return;
         Context context = getApplicationContext();
         setContentView(R.layout.fragment_scan);
 
