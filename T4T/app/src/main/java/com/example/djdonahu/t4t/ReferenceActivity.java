@@ -1,5 +1,7 @@
 package com.example.djdonahu.t4t;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -57,7 +59,7 @@ public class ReferenceActivity extends ActionBarActivity {
                     new FetchUrlCallback() {
                         @Override
                         public void execute(Object result) {
-                            Product p = ScanActivity.getProduct(result);
+                            Product p = OutpanRequest.castProduct(result);
                             if (p != null) {
                                 Log.d("SCAN", p.toString());
                                 SavedPreferences.addProduct(p);
@@ -81,6 +83,13 @@ public class ReferenceActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_reference, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
         return true;
     }
 

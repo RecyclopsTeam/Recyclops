@@ -1,6 +1,8 @@
 package com.example.djdonahu.t4t;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,15 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.*;
+import com.squareup.picasso.Picasso;
+
 import android.widget.Button;
 import android.widget.Toast;
 
 
 public class ScanActivity extends ActionBarActivity {
 
+    // This is important. Don't delete it or the class will break! :-)
+    private boolean hasLoaded = false;
+    private String lastBarcode;
     private static String SCAN_TAG = "T4T_SCAN";
 
     private TextView scanResults;
@@ -32,12 +40,13 @@ public class ScanActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
-        if (savedInstanceState == null) {
+        //setContentView(R.layout.activity_scan);
+        /*if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new LoaderFragment())
                     .commit();
-        }
+        }*/
+        setContentView(R.layout.scan_loading);
         Intent intent = getIntent();
         boolean shouldScan = intent.getBooleanExtra("startScanning", false);
         intent.putExtra("startScanning", false);
@@ -50,15 +59,42 @@ public class ScanActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void onCancelClick(View v)
+    {
+        OutpanRequest.cancelRequest();
+        finish();
+
+    }
+
+    public void onPause()
+    {
+        super.onPause();
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        editor.putString("lastBarcode", lastBarcode);
+        editor.commit();
+
+    }
+
+    private void loadProductView(Product product)
+    {
+        Context context = getApplicationContext();
+        setContentView(R.layout.fragment_scan);
+
+        TextView title = (TextView) findViewById(R.id.item_name);
+        title.setText((CharSequence) product.product_name);
 
         //point our View variables to the id that they correspond to
         purchasedButton = (Button) findViewById(R.id.purchased_button);
         nopeButton = (Button) findViewById(R.id.nope_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
 
+        ImageView item_image = (ImageView) findViewById( R.id.item_image );
+        //String fullThumbUrl = Settings.thumbUrlRoot + "/" + item.thumb_url;
+        if ( product.images.size() > 0) {
+            String url = product.images.get(0);
+            Picasso.with(context).load(url).into(item_image);
+
+        }
 
         //define the behaviors for when each button is clicked.
         purchasedButton.setOnClickListener(new View.OnClickListener() {
@@ -94,12 +130,48 @@ public class ScanActivity extends ActionBarActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = getPreferences( MODE_PRIVATE );
+        String storedBarcode = prefs.getString( "lastBarcode", null );
+
+        setContentView(R.layout.scan_loading);
+
+        // If we have a stored barcode, do a search on it. Otherwise, end the activity.
+       // if ( storedBarcode != null )
+        //    doSearch(storedBarcode);
+       // else
+        //    finish();
+//
+
+    }
+
+    private void doSearch(String upc)
+    {
+        // To the internet!
+        OutpanRequest.getProduct(
+            upc,
+            new FetchUrlCallback() {
+
+                @Override
+                public void execute(Object result) {
+                    Product p = OutpanRequest.castProduct(result);
+                    if (p != null) {
+                        loadProductView(p);
+                        Log.d(SCAN_TAG, p.toString());
+                    }
+                }
+            }
+        );
+    }
+
     // Returning from scan app
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         Log.d("T4T", "Scan activity result");
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null) {
+        if (scanResult != null && scanResult.getContents() != null) {
             // handle scan result
             String format = scanResult.getFormatName();
             if (!format.equals("UPC_A")) {
@@ -107,38 +179,12 @@ public class ScanActivity extends ActionBarActivity {
             }
             String upc = scanResult.getContents();
             Log.d(SCAN_TAG, "UPC: " + upc);
-            // To the internet!
-            OutpanRequest.getProduct(
-                    upc,
-                    new FetchUrlCallback() {
 
-                        @Override
-                        public void execute(Object result) {
-                            Product p = getProduct(result);
-                            if (p != null) {
-                                Log.d(SCAN_TAG, p.toString());
-                                SavedPreferences.addProduct(p);
-                            }
-                        }
-                    }
-            );
+            doSearch(upc);
+
         }
     }
 
-    // Cast the product
-    public static Product getProduct(Object result) {
-        Product product = null;
-        try {
-            product = (Product) result;
-            // now do something with product result.
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-
-        }
-        return product;
-    }
 
     //
     // Buttons
