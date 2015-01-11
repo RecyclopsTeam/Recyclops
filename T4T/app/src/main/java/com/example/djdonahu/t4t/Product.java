@@ -26,6 +26,9 @@ public class Product {
     @SerializedName("contents_size")
     public String contents_size;
 
+    @SerializedName("error")
+    public HashMap<String,String> error;
+
     @SerializedName("barcode")
     public String upc;
 
