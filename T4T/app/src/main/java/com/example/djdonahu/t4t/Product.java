@@ -121,6 +121,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return product_name;
+        return product_name+", pack: "+packaging_material+", size: "+packaging_size;
     }
 }
