@@ -20,10 +20,11 @@ import java.net.URLEncoder;
     });
 
     Here is how your getProduct(result) might work if result is a Product object.
-    public void getProduct(Object result)
+    public Product getProduct(Object result)
     {
+        Product product = null;
         try {
-        Product product = (Product) result;
+        product = (Product) result;
         // now do something with product result.
         }
         catch (Exception e)
@@ -31,6 +32,7 @@ import java.net.URLEncoder;
             e.printStackTrace();
 
         }
+        return product;
     }
 
  */
@@ -39,7 +41,7 @@ public class OutpanRequest
 {
     private static AsyncTask currRequest = null;
     private static String gatewayUrl
-            = "http://www.outpan.com/get-product.php?apikey=ac75f6821225d0efc22cb8cb9cfd294b";
+            = "http://www.outpan.com/api/get-product.php?apikey=ac75f6821225d0efc22cb8cb9cfd294b";
 
     public static void getProduct(String barcode, FetchUrlCallback callback)
     {

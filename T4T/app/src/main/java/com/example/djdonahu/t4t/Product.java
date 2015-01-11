@@ -22,4 +22,49 @@ public class Product {
 
     @SerializedName("barcode")
     public String upc;
+
+    public boolean packageRecyclable(){
+        switch (packaging_material) {
+            case "plastic_1": return true;
+            case "plastic_2": return true;
+            case "plastic_3": return true;
+            case "plastic_4": return true;
+            case "plastic_5": return true;
+            case "plastic_6": return false;
+            case "plastic_7": return true;
+            case "paperboard": return true;
+            case "aluminum": return true;
+            case "soiled_paper": return false;
+            case "soiled_cardboard": return false;
+            case "glass": return true;
+            case "styrofoam": return false;
+            case "plastic": return false;
+        }
+        return false;
+    }
+
+    public boolean contentsRecyclable(){
+        switch (contents_material) {
+            case "plastic_1": return true;
+            case "plastic_2": return true;
+            case "plastic_3": return true;
+            case "plastic_4": return true;
+            case "plastic_5": return true;
+            case "plastic_6": return false;
+            case "plastic_7": return true;
+            case "paperboard": return true;
+            case "aluminum": return true;
+            case "soiled_paper": return false;
+            case "soiled_cardboard": return false;
+            case "glass": return true;
+            case "styrofoam": return false;
+            case "plastic": return false;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return product_name;
+    }
 }
