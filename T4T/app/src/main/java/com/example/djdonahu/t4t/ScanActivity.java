@@ -156,7 +156,7 @@ public class ScanActivity extends ActionBarActivity {
 
                 @Override
                 public void execute(Object result) {
-                    Product p = getProduct(result);
+                    Product p = OutpanRequest.castProduct(result);
                     if (p != null) {
                         loadProductView(p);
                         Log.d(SCAN_TAG, p.toString());
@@ -185,23 +185,6 @@ public class ScanActivity extends ActionBarActivity {
         }
     }
 
-    // Cast the product
-    public Product getProduct(Object result) {
-        Product product = null;
-        try {
-            if ( result != null )
-                product = (Product) result;
-            else
-                product = null;
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-
-        }
-        return product;
-    }
 
     //
     // Buttons

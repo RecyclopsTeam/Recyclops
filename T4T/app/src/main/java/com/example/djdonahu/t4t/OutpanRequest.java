@@ -43,6 +43,25 @@ public class OutpanRequest
     private static String gatewayUrl
             = "http://www.outpan.com/api/get-product.php?apikey=ac75f6821225d0efc22cb8cb9cfd294b";
 
+    public static Product castProduct(Object result)
+    {
+        Product product = null;
+        try {
+            if ( result != null )
+                product = (Product) result;
+            else
+                product = null;
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+        return product;
+
+    }
+    
     public static void getProduct(String barcode, FetchUrlCallback callback)
     {
         request( RequestType.GET_PRODUCT, barcode, callback );

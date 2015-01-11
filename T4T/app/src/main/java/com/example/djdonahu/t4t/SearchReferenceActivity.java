@@ -27,7 +27,8 @@ public class SearchReferenceActivity extends ListActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            //doMySearch(query);
+            Toast toast = Toast.makeText(getApplicationContext(), "Search!!!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

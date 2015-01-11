@@ -4,6 +4,7 @@ package com.example.djdonahu.t4t;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Product {
 
@@ -12,6 +13,9 @@ public class Product {
 
     @SerializedName("packaging_material")
     public String packaging_material;
+
+    @SerializedName("attributes")
+    public HashMap<String,String> attributes;
 
     @SerializedName("packaging_size")
     public String packaging_size;
@@ -29,41 +33,97 @@ public class Product {
     public ArrayList<String> images;
 
     public boolean packageRecyclable(){
-        switch (packaging_material) {
-            case "plastic_1": return true;
-            case "plastic_2": return true;
-            case "plastic_3": return true;
-            case "plastic_4": return true;
-            case "plastic_5": return true;
-            case "plastic_6": return false;
-            case "plastic_7": return true;
-            case "paperboard": return true;
-            case "aluminum": return true;
-            case "soiled_paper": return false;
-            case "soiled_cardboard": return false;
-            case "glass": return true;
-            case "styrofoam": return false;
-            case "plastic": return false;
+        if(packaging_material == null){ return false; };
+
+        if(packaging_material.equals("plastic_1")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_2")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_3")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_4")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_5")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_6")) {
+            return false;
+        }
+        else if(packaging_material.equals("plastic_7")) {
+            return true;
+        }
+        else if(packaging_material.equals("paperboard")) {
+            return true;
+        }
+        else if(packaging_material.equals("aluminum")) {
+            return true;
+        }
+        else if(packaging_material.equals("soiled_paper")) {
+            return false;
+        }
+        else if(packaging_material.equals("soiled_cardboard")) {
+            return false;
+        }
+        else if(packaging_material.equals("glass")) {
+            return true;
+        }
+        else if(packaging_material.equals("styrofoam")) {
+            return false;
+        }
+        else if(packaging_material.equals("plastic")) {
+            return false;
         }
         return false;
     }
 
     public boolean contentsRecyclable(){
-        switch (contents_material) {
-            case "plastic_1": return true;
-            case "plastic_2": return true;
-            case "plastic_3": return true;
-            case "plastic_4": return true;
-            case "plastic_5": return true;
-            case "plastic_6": return false;
-            case "plastic_7": return true;
-            case "paperboard": return true;
-            case "aluminum": return true;
-            case "soiled_paper": return false;
-            case "soiled_cardboard": return false;
-            case "glass": return true;
-            case "styrofoam": return false;
-            case "plastic": return false;
+        if(packaging_material == null){ return false; };
+
+        if(packaging_material.equals("plastic_1")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_2")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_3")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_4")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_5")) {
+            return true;
+        }
+        else if(packaging_material.equals("plastic_6")) {
+            return false;
+        }
+        else if(packaging_material.equals("plastic_7")) {
+            return true;
+        }
+        else if(packaging_material.equals("paperboard")) {
+            return true;
+        }
+        else if(packaging_material.equals("aluminum")) {
+            return true;
+        }
+        else if(packaging_material.equals("soiled_paper")) {
+            return false;
+        }
+        else if(packaging_material.equals("soiled_cardboard")) {
+            return false;
+        }
+        else if(packaging_material.equals("glass")) {
+            return true;
+        }
+        else if(packaging_material.equals("styrofoam")) {
+            return false;
+        }
+        else if(packaging_material.equals("plastic")) {
+            return false;
         }
         return false;
     }

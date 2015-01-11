@@ -18,4 +18,9 @@ public class ProductListItem {
         this.name = name;
         this.UPC = "NO UPC FOUND";
     }
+
+    ProductListItem(Product p){
+        this.name = p.product_name;
+        this.UPC = p.upc;
+    }
 }

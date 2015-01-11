@@ -81,22 +81,22 @@ public class SavedPreferences {
         }
     }
 
-    public void addProduct(Product item) {
-        instance.all_products.products.put(item.upc, item);
-        instance.commitToPrefs();
+    public static void addProduct(Product item) {
+        getInstance().all_products.products.put(item.upc, item);
+        getInstance().commitToPrefs();
     }
 
-    public void removeProduct(Product item) {
-        instance.all_products.products.remove(item.upc);
-        instance.commitToPrefs();
+    public static void removeProduct(Product item) {
+        getInstance().all_products.products.remove(item.upc);
+        getInstance().commitToPrefs();
     }
 
-    public Map<String, Product> getSavedProductList() {
-        return instance.all_products.products;
+    public static Map<String, Product> getSavedProductList() {
+        return getInstance().all_products.products;
     }
 
-    public Product getProduct(String upc) {
-        return instance.all_products.products.get(upc);
+    public static Product getProduct(String upc) {
+        return getInstance().all_products.products.get(upc);
     }
 
 }
