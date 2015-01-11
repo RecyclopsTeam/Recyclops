@@ -12,12 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
+
+import com.google.zxing.integration.android.*;
 import android.widget.Button;
 import android.widget.Toast;
 
 
 public class ScanActivity extends ActionBarActivity {
 
+    private static String SCAN_TAG = "T4T_SCAN";
+
+    private TextView scanResults;
     // initialize View variables (TextViews, ListViews, Buttons, etc)
     private Button purchasedButton;
     private Button nopeButton;
@@ -31,6 +37,16 @@ public class ScanActivity extends ActionBarActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+        }
+        Intent intent = getIntent();
+        boolean shouldScan = intent.getBooleanExtra("startScanning", false);
+        intent.putExtra("startScanning", false);
+
+        // Don't accidentally get stuck in a scanning loop, only scan on first creation
+        if (shouldScan) {
+            Log.d("T4T", "Launching scan in create");
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.initiateScan();
         }
     }
 
@@ -50,8 +66,6 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
-//                startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(), "Item stored, returning to scanner", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -62,10 +76,9 @@ public class ScanActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
-//                Intent intent = new Intent(ScanActivity.this, StartActivity.class);
-//                startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(), "Item discarded, returning to scanner", Toast.LENGTH_SHORT);
                 toast.show();
+                scanAgain(v);
             }
         });
 
@@ -81,6 +94,33 @@ public class ScanActivity extends ActionBarActivity {
         });
     }
 
+    // Returning from scan app
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.d("T4T", "Scan activity result");
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            // handle scan result
+            String format = scanResult.getFormatName();
+            if (!format.equals("UPC_A")) {
+                Log.w(SCAN_TAG, "Possibly unsupported UPC type " + format);
+            }
+            String upc = scanResult.getContents();
+            Log.d(SCAN_TAG, "UPC: " + upc);
+            // To the internet!
+            // TODO: Go to the internet
+        }
+    }
+
+    //
+    // Buttons
+    //
+
+    // Scan again
+    public void scanAgain (View v) {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.initiateScan();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
