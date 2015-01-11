@@ -13,19 +13,19 @@ public class Product {
     public String product_name;
 
     @SerializedName("packaging_material")
-    public String packaging_material;
+    public String packaging_material = "N/A";
 
     @SerializedName("attributes")
     public HashMap<String,String> attributes;
 
     @SerializedName("packaging_size")
-    public String packaging_size;
+    public String packaging_size = "No material size found";
 
     @SerializedName("contents_material")
-    public String contents_material;
+    public String contents_material = "N/A";
 
     @SerializedName("contents_size")
-    public String contents_size;
+    public String contents_size = "No material size found";
 
     @SerializedName("error")
     public HashMap<String,String> error;
@@ -181,6 +181,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return product_name;
+        return product_name+", pack: "+packaging_material+", size: "+packaging_size;
     }
 }
