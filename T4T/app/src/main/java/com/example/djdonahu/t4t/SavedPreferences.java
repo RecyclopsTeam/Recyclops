@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -20,10 +22,10 @@ public class SavedPreferences {
     private static Context applicationContext;
 
     public class Product_List {
-        public ArrayList<Product> products;
+        public Map<String, Product> products;
 
         public Product_List() {
-            this.products = new ArrayList<Product>();
+            this.products = new HashMap<String, Product>();
         }
     }
 
@@ -80,22 +82,21 @@ public class SavedPreferences {
     }
 
     public void addProduct(Product item) {
-        instance.all_products.products.add(item);
+        instance.all_products.products.put(item.upc, item);
         instance.commitToPrefs();
     }
 
     public void removeProduct(Product item) {
-        instance.all_products.products.remove(item);
+        instance.all_products.products.remove(item.upc);
         instance.commitToPrefs();
     }
 
-    public ArrayList<Product> getSavedProductList() {
+    public Map<String, Product> getSavedProductList() {
         return instance.all_products.products;
     }
 
-    public Product getProduct(Product item) {
-        int i = instance.all_products.products.lastIndexOf(item);
-        return instance.all_products.products.get(i);
+    public Product getProduct(String upc) {
+        return instance.all_products.products.get(upc);
     }
 
 }
