@@ -161,6 +161,28 @@ public class ScanActivity extends ActionBarActivity {
                     if (p != null) {
                         if ( p.error.containsKey("code"))
                         {
+                            String code = p.error.get("code");
+                            setContentView(R.layout.scan_error);
+                            TextView error_text = (TextView) findViewById(R.id.scan_error_text);
+
+                            CharSequence error_msg = "There was a problem scanning your item.";
+                            if ( code == "210" )
+                            {
+                                error_msg = "A barcode is required.";
+
+                            }
+                            else if ( code == "120" )
+                            {
+                                error_msg = "There was a problem accessing the item database.";
+
+                            }
+                            else if ( code == "420" )
+                            {
+                                error_msg = "Something went horribly wrong. I shouldn't even be here today.";
+
+                            }
+
+                            error_text.setText(error_msg);
 
                         }
                         else
