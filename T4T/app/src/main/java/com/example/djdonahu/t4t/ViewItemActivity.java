@@ -36,7 +36,6 @@ public class ViewItemActivity extends ActionBarActivity {
         String UPC = intent.getStringExtra("UPC");
 
         //Product product = null;
-        SavedPreferences.getInstance(this);
         Log.e(UPC,UPC);
         Product product = SavedPreferences.getProduct(UPC);
         if(product == null) return;
@@ -48,11 +47,14 @@ public class ViewItemActivity extends ActionBarActivity {
         TextView packageMaterialView = (TextView) findViewById(R.id.view_package_material);
         TextView contentsMaterialView = (TextView) findViewById(R.id.view_contents_material);
 
+        Log.e("Product", product.toString());
+
         UPCView.setText(UPC);
-        packageRecycleableView.setText((product.packageRecyclable() ? "Yes" : "No"));
-        contentsRecycleableView.setText((product.contentsRecyclable()  ? "Yes" : "No"));
+        packageRecycleableView.setText((product.packageRecyclable() ? "Yes" : "Nope"));
+        contentsRecycleableView.setText((product.contentsRecyclable()  ? "Yes" : "Nope"));
         packageMaterialView.setText(product.packaging_material);
         contentsMaterialView.setText(product.contents_material);
+        nameView.setText(product.product_name);
 
     }
 

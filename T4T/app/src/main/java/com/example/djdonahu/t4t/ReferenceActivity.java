@@ -33,9 +33,6 @@ public class ReferenceActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        SavedPreferences.getInstance(this);
-        generatePhonyList();
-
     }
 
     @Override
