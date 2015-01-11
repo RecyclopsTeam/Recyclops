@@ -36,14 +36,18 @@ public class Product {
     public ArrayList<String> images;
 
     public Product initialize() {
-        // null out the product if there isn't at least a name
+        if (error != null && error.containsKey("code")) {
+            // Error encountered, bail! We'll handle this later.
+            return this;
+        }
+        // Return an error
         if (product_name == null) {
-            return null;
+            return errorProductNotFound();
         }
         packaging_material = attributes.get("packaging_material");
         packaging_size = attributes.get("packaging_size");
         if (packaging_material == null || packaging_size == null) {
-            return null;
+            return errorProductNotFound();
         }
         contents_material = attributes.get("contents_material");
         contents_size = attributes.get("contents_size");
@@ -144,6 +148,13 @@ public class Product {
             return false;
         }
         return false;
+    }
+
+    private static Product errorProductNotFound() {
+        Product p = new Product();
+        p.error = new HashMap<String, String>();
+        p.error.put("code", "T4T_NOT_FOUND");
+        return p;
     }
 
     @Override
