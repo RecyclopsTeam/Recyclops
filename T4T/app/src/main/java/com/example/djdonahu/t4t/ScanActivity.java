@@ -18,10 +18,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.*;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 public class ScanActivity extends ActionBarActivity {
@@ -78,6 +85,7 @@ public class ScanActivity extends ActionBarActivity {
     private void loadProductView(Product product)
     {
         if (product == null) return;
+
         Context context = getApplicationContext();
         setContentView(R.layout.fragment_scan);
 
@@ -91,9 +99,8 @@ public class ScanActivity extends ActionBarActivity {
 
         ImageView item_image = (ImageView) findViewById( R.id.item_image );
         //String fullThumbUrl = Settings.thumbUrlRoot + "/" + item.thumb_url;
-        if ( product.images.size() > 0) {
-            String url = product.images.get(0);
-            Picasso.with(context).load(url).into(item_image);
+        if (product.image_url != null) {
+            Picasso.with(context).load(product.image_url).into(item_image);
 
         }
 
@@ -199,6 +206,25 @@ public class ScanActivity extends ActionBarActivity {
         );
     }
 
+    private void doParseSearch(String upc)
+    {
+        //To Parse!
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+        query.whereEndsWith("upc", upc);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject product, ParseException e) {
+                if (product != null) {
+                    Log.d("query result", "Found a product");
+
+                    Product p = new Product(product);
+                    loadProductView(p);
+                } else if (e != null){
+                    Log.d("query result", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+
     // Returning from scan app
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -213,7 +239,7 @@ public class ScanActivity extends ActionBarActivity {
             String upc = scanResult.getContents();
             Log.d(SCAN_TAG, "UPC: " + upc);
 
-            doSearch(upc);
+            doParseSearch(upc);
 
         }
     }
