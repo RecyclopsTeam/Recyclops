@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="com.example.djdonahu.t4t.ScanActivity" tools:ignore="MergeRootFrame" >
+    tools:context="com.example.djdonahu.t4t.ScanActivity" tools:ignore="MergeRootFrame"
+    android:background="#ff86e3f0">
 
     <ImageView
         android:layout_width="match_parent"
