@@ -22,4 +22,9 @@ public class Product {
 
     @SerializedName("barcode")
     public String upc;
+
+    @Override
+    public String toString() {
+        return product_name;
+    }
 }
