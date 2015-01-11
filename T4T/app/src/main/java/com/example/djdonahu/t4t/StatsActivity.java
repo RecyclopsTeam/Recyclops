@@ -79,10 +79,8 @@ public class StatsActivity extends ActionBarActivity {
                     .commit();
         }
 
-        Log.e("HMM", "good herE?!!!");
         graphStats = StatTracker.getGraphData();
 
-        Log.e("w", "w");
     }
 
     public DataPoint[] returnInfo(Map name){
@@ -142,20 +140,20 @@ public class StatsActivity extends ActionBarActivity {
         trash.setSpacing(10);
         recycling.setSpacing(10);
         graph.addSeries(trash);
-        trash.setColor(Color.BLUE);
+        trash.setColor(Color.parseColor("#DE4516")); //blue
 
 
         graph.addSeries(recycling);
-        recycling.setColor(Color.YELLOW);
-
+        recycling.setColor(Color.parseColor("#16AFDE")); //orange
 
         trash.setTitle("Trash");
         recycling.setTitle("Recycling");
-        graph.setTitle("Stats for past 30 days");
+        graph.setTitle("Stats for the past 30 days");
+        graph.setTitleColor(Color.parseColor("#FEF5FF"));
 
         trash.setDrawValuesOnTop(true);
         trash.setValuesOnTopSize(30);
-        trash.setValuesOnTopColor(Color.BLACK);
+        trash.setValuesOnTopColor(Color.parseColor("#FEF5FF"));
 
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
@@ -164,7 +162,11 @@ public class StatsActivity extends ActionBarActivity {
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10);
         graph.getViewport().scrollToEnd();
+        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#FEF5FF"));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#FEF5FF"));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#FEF5FF"));
         graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setTextColor(Color.WHITE);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
     }
