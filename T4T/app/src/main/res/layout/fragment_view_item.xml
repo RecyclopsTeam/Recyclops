@@ -31,10 +31,9 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="195dp"
-        android:layout_below="@+id/view_UPC"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view_item_image">
 
 
         <TableRow
@@ -125,5 +124,14 @@
         </TableRow>
 
     </TableLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_item_image"
+        android:src="@drawable/coca_cola"
+        android:layout_below="@+id/view_UPC"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
