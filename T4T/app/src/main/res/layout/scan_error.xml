@@ -5,7 +5,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="#ff86e3f0">
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,8 +39,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Try Again"
+            android:text="Try Again?"
             android:id="@+id/btn_try_again"
+            android:background="@drawable/red_button"
+            style="@style/button_text"
+
             android:layout_gravity="center_horizontal"
             android:onClick="scanAgain" />
     </LinearLayout>
