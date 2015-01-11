@@ -1,10 +1,8 @@
 package com.example.djdonahu.t4t;
-
-
 import android.os.AsyncTask;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 /*
 
     getProduct (or another callback) is another method within the calling class,
@@ -51,8 +49,8 @@ public class OutpanRequest
 
     private static void request(RequestType type, String args, FetchUrlCallback callback)
     {
-        StringBuilder urlStr = new StringBuilder( gatewayUrl );
-        Class<?> objectType = ProductResult.class;
+        StringBuilder urlStr = new StringBuilder(gatewayUrl);
+        Class<?> objectType = Product.class;
         try
         {
             switch (type)
@@ -60,12 +58,12 @@ public class OutpanRequest
                 case GET_PRODUCT:
                     urlStr.append("&barcode=")
                             .append(args);
-                    objectType = ProductResult.class;
+                    objectType = Product.class;
                     break;
 
             }
 
-            System.out.println( "URL: " + urlStr.toString());
+            System.out.println("URL: " + urlStr.toString());
 
             currRequest = new FetchRequestAsync( urlStr.toString(),
                     callback, objectType ).execute();
