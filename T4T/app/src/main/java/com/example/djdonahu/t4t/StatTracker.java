@@ -26,7 +26,7 @@ public class StatTracker {
     private static Context currentApplicationContext;
 
     private static SimpleDateFormat fmt = new SimpleDateFormat("MMM/dd/yyyy");
-    private static SimpleDateFormat label_fmt = new SimpleDateFormat("mm/dd");
+    private static SimpleDateFormat label_fmt = new SimpleDateFormat("MM/dd");
 
 
     public Tracker_Map tracker_data;
@@ -118,7 +118,7 @@ public class StatTracker {
 
     public static GraphStats getGraphData(GregorianCalendar start, GregorianCalendar end){
         long diff = start.getTimeInMillis() - end.getTimeInMillis();
-        int numDays = (int) (diff / (24 * 60 * 60 * 1000)) + 2;
+        int numDays = (int) (diff / (24 * 60 * 60 * 1000));
 
         Log.d("Mem", "size: "+numDays);
 
@@ -128,6 +128,7 @@ public class StatTracker {
         GregorianCalendar currentDay = end;//(GregorianCalendar) start.clone();
         for(int i=0; i < numDays; ++i){
             gs.XValues[i] = i;
+            String day = format(currentDay);
             gs.labels[i] = label_fmt.format(currentDay.getTime());
 
             DailyData dayData = data.get(format(currentDay));
@@ -150,14 +151,14 @@ public class StatTracker {
     public static GraphStats getGraphData(){
         GregorianCalendar today = new GregorianCalendar();
         GregorianCalendar aMonthAgo = ((GregorianCalendar) today.clone());
-        aMonthAgo.add(GregorianCalendar.DATE, -10);
+        aMonthAgo.add(GregorianCalendar.DATE, -30);
         return getGraphData(today, aMonthAgo);
     }
 
     private void generatePhonyData(Tracker_Map tracker_map){
         GregorianCalendar today = new GregorianCalendar();
         GregorianCalendar aMonthAgo = ((GregorianCalendar) today.clone());
-        aMonthAgo.add(GregorianCalendar.DATE, -10);
+        aMonthAgo.add(GregorianCalendar.DATE, -30);
         long diff = today.getTimeInMillis() - aMonthAgo.getTimeInMillis();
         int numDays = (int) (diff / (24 * 60 * 60 * 1000)) + 2;
 
@@ -166,6 +167,7 @@ public class StatTracker {
         GraphStats gs = new GraphStats(numDays);
         GregorianCalendar currentDay = aMonthAgo;
         for(int i=0; i < numDays; ++i){
+            String day = format(currentDay);
             this.tracker_data.tracker_data.put(format(currentDay), new DailyData((float)Math.random()*20, (float)Math.random()*20));
             //tracker_map.tracker_data.put((GregorianCalendar) currentDay.clone(), new DailyData((float)Math.random()*50, (float)Math.random()*50));
             currentDay.add(GregorianCalendar.DATE, 1);

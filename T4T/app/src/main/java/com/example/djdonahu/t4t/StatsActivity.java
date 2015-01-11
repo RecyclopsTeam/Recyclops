@@ -108,10 +108,10 @@ public class StatsActivity extends ActionBarActivity {
         super.onResume();
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
-        DataPoint[] wasteData = returnInfo(dayWasteTotal);
-        DataPoint[] recycleData = returnInfo(dayRecycleTotal);
+        //DataPoint[] wasteData = returnInfo(dayWasteTotal);
+        //DataPoint[] recycleData = returnInfo(dayRecycleTotal);
 
-        Log.e("ARRAY", wasteData[0].toString());
+        //Log.e("ARRAY", wasteData[0].toString());
 
         BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
         BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);

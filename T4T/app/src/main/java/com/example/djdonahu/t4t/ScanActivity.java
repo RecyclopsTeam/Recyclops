@@ -97,7 +97,17 @@ public class ScanActivity extends ActionBarActivity {
         TextView packageRecyclableView = (TextView) findViewById(R.id.view_package_recyclable);
         packageRecyclableView.setText((product.packageRecyclable() ? "Yes" : "No"));
         TextView contentsRecyclableView = (TextView) findViewById(R.id.view_contents_recyclable);
-        contentsRecyclableView.setText((product.contentsRecyclable() ? "Yes" : "No"));
+        if(product.contents_material != null) {
+            contentsRecyclableView.setText((product.contentsRecyclable() ? "Yes" : "No"));
+        }
+        else{// if null, null out the unneeded contents label
+            TextView contentsMaterialLabelView = (TextView) findViewById(R.id.view_contents_label);
+            contentsMaterialLabelView.setText("");
+            TextView contentsRecyclableLabelView = (TextView) findViewById(R.id.view_contents_recyclable_label);
+            contentsRecyclableLabelView.setText("");
+            contentsRecyclableView.setText("");
+        }
+
         TextView packageMaterialView = (TextView) findViewById(R.id.view_package_material);
         packageMaterialView.setText(product.packaging_material);
         TextView contentsMaterialView = (TextView) findViewById(R.id.view_contents_material);
@@ -129,10 +139,7 @@ public class ScanActivity extends ActionBarActivity {
         nopeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
-                scanAgain(v);
-            }
+            public void onClick(View v){ scanAgain(v); }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +235,7 @@ public class ScanActivity extends ActionBarActivity {
 
                     Product p = new Product(product);
                     loadProductView(p);
-                } else if (e != null){
+                } else if (e != null) {
                     Log.d("query result", "Error: " + e.getMessage());
                 }
             }
