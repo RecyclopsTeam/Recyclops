@@ -7,6 +7,6 @@
     <string name="title_activity_reference">Reference</string>
     <string name="title_activity_stats">Statistics</string>
     <string name="title_activity_scan">Scan Result</string>
-
+    <string name="title_activity_view_item">ViewItemActivity</string>
 
 </resources>
