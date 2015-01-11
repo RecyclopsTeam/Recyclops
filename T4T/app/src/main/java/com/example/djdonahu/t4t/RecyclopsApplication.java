@@ -24,10 +24,6 @@ public class RecyclopsApplication extends Application {
         Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, "QIMMVQrjWNYfbCNfoXEsIU8w3Dyw1E0FlwBtnL7v", "X4PBoUvAeNYkzW1Ihh4nUYLO0tud8zD1j0qRQQOV");
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
     }
 
     public static Context getContext() {
