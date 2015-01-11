@@ -59,7 +59,7 @@ public class ReferenceActivity extends ActionBarActivity {
                         public void execute(Object result) {
                             Product p = ScanActivity.getProduct(result);
                             if (p != null) {
-                                //Log.d(SCAN_TAG, p.toString());
+                                Log.d("SCAN", p.toString());
                                 SavedPreferences.addProduct(p);
                             }
                         }
