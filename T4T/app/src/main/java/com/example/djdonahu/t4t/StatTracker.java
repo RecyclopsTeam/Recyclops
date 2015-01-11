@@ -125,7 +125,7 @@ public class StatTracker {
         HashMap<String, DailyData> data = getInstance().tracker_data.tracker_data;
 
         GraphStats gs = new GraphStats(numDays);
-        GregorianCalendar currentDay = start;//(GregorianCalendar) start.clone();
+        GregorianCalendar currentDay = end;//(GregorianCalendar) start.clone();
         for(int i=0; i < numDays; ++i){
             gs.XValues[i] = i;
             gs.labels[i] = label_fmt.format(currentDay.getTime());
@@ -164,7 +164,7 @@ public class StatTracker {
         HashMap<String, DailyData> data = this.tracker_data.tracker_data;
 
         GraphStats gs = new GraphStats(numDays);
-        GregorianCalendar currentDay = today;
+        GregorianCalendar currentDay = aMonthAgo;
         for(int i=0; i < numDays; ++i){
             this.tracker_data.tracker_data.put(format(currentDay), new DailyData((float)Math.random()*20, (float)Math.random()*20));
             //tracker_map.tracker_data.put((GregorianCalendar) currentDay.clone(), new DailyData((float)Math.random()*50, (float)Math.random()*50));

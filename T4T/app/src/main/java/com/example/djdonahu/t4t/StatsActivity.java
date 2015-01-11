@@ -116,11 +116,23 @@ public class StatsActivity extends ActionBarActivity {
         BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
         BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);
 
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        //StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
 
-        staticLabelsFormatter.setHorizontalLabels(graphStats.labels);
+        //staticLabelsFormatter.setHorizontalLabels(graphStats.labels);
         //graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if (isValueX) {
+                    // show normal x values
+                    return graphStats.labels[(int)value];
+                } else {
+                    // show currency for y values
+                    return super.formatLabel(value, isValueX) + " €";
+                }
+            }
+        });
 
 
         trash.setSpacing(10);
@@ -138,10 +150,11 @@ public class StatsActivity extends ActionBarActivity {
         graph.setTitle("Stats for past 30 days");
         graph.setMinimumHeight(0);
         graph.getViewport().setScrollable(true);
+        graph.getViewport().setScalable(true);
         //graph.setHorizontalScrollBarEnabled(true);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0.5);
-        graph.getViewport().setMaxX(7);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(10);
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
