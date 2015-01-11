@@ -108,10 +108,10 @@ public class StatsActivity extends ActionBarActivity {
         super.onResume();
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
-        DataPoint[] wasteData = returnInfo(dayWasteTotal);
-        DataPoint[] recycleData = returnInfo(dayRecycleTotal);
+        //DataPoint[] wasteData = returnInfo(dayWasteTotal);
+        //DataPoint[] recycleData = returnInfo(dayRecycleTotal);
 
-        Log.e("ARRAY", wasteData[0].toString());
+        //Log.e("ARRAY", wasteData[0].toString());
 
         BarGraphSeries<DataPoint> trash = new BarGraphSeries<DataPoint>(graphStats.totalData);
         BarGraphSeries<DataPoint> recycling = new BarGraphSeries<DataPoint>(graphStats.recyclingData);
@@ -125,11 +125,17 @@ public class StatsActivity extends ActionBarActivity {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    // show normal x values
-                    return graphStats.labels[(int)value];
+                    int v = (int)Math.round(value);
+                    if (v >= 0 && v < graphStats.labels.length) {
+                        // show normal x values
+                        return graphStats.labels[v];
+                    } else {
+                        // Out of bounds
+                        return "";
+                    }
                 } else {
                     // show currency for y values
-                    return super.formatLabel(value, isValueX) + " €";
+                    return super.formatLabel(value, isValueX);
                 }
             }
         });

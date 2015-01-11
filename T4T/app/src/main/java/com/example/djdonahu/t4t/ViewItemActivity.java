@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
 import android.os.Build;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 
 public class ViewItemActivity extends ActionBarActivity {
@@ -34,10 +37,10 @@ public class ViewItemActivity extends ActionBarActivity {
         super.onResume();
         Intent intent = getIntent();
         String UPC = intent.getStringExtra("UPC");
+        Context context = getApplicationContext();
 
         //Product product = null;
-        SavedPreferences.getInstance(this);
-        Log.e(UPC,UPC);
+        Log.e(UPC, UPC);
         Product product = SavedPreferences.getProduct(UPC);
         if(product == null) return;
 
@@ -56,6 +59,12 @@ public class ViewItemActivity extends ActionBarActivity {
         packageMaterialView.setText(product.packaging_material);
         contentsMaterialView.setText(product.contents_material);
         nameView.setText(product.product_name);
+
+        ImageView item_image = (ImageView) findViewById( R.id.view_item_image);
+        //String fullThumbUrl = Settings.thumbUrlRoot + "/" + item.thumb_url;
+        if (product.image_url != null) {
+            Picasso.with(context).load(product.image_url).into(item_image);
+        }
 
     }
 
