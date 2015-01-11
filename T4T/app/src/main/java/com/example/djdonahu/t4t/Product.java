@@ -24,7 +24,8 @@ public class Product {
     public String upc;
 
     public boolean packageRecyclable(){
-        switch (packaging_material) {
+        return false;
+        /*switch (packaging_material) {
             case "plastic_1": return true;
             case "plastic_2": return true;
             case "plastic_3": return true;
@@ -39,8 +40,8 @@ public class Product {
             case "glass": return true;
             case "styrofoam": return false;
             case "plastic": return false;
-        }
-        return false;
+            default: return false;
+        }*/
     }
 
     public boolean contentsRecyclable(){
@@ -59,8 +60,8 @@ public class Product {
             case "glass": return true;
             case "styrofoam": return false;
             case "plastic": return false;
+            default: return false;
         }
-        return false;
     }
 
     @Override

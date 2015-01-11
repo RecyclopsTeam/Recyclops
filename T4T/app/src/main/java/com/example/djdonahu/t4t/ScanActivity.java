@@ -126,7 +126,7 @@ public class ScanActivity extends ActionBarActivity {
     }
 
     // Cast the product
-    public Product getProduct(Object result) {
+    public static Product getProduct(Object result) {
         Product product = null;
         try {
             product = (Product) result;
