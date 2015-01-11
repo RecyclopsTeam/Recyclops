@@ -4,56 +4,45 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.*;
-import java.util.ArrayList;
+import android.content.Intent;
 import android.os.Build;
+import android.widget.TextView;
 
 
-public class ReferenceActivity extends ActionBarActivity {
-
-    ListAdapter productAdapter;
-    ListView productlistView;
+public class ViewItemActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reference);
+        setContentView(R.layout.activity_view_item);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
+        Intent intent = getIntent();
+        String UPC = intent.getStringExtra("UPC");
 
-        ArrayList<ProductListItem> productItems = new ArrayList<ProductListItem>();
-        for(int i=0;i<12;i++) {
-            String size = i%2 == 0 ? "Even UPC" : "Odd UPC";
-            productItems.add(new ProductListItem("Butt", size));
-        }
-        productAdapter = new ProductListAdapter(this,
-                R.layout.product_item, R.id.product_name, productItems, this);
+        TextView UPCView = (TextView) findViewById(R.id.view_UPC);
+        TextView nameView = (TextView) findViewById(R.id.view_product_name);
 
-        productlistView = (ListView) findViewById(R.id.reference_listView);
-        productlistView.setAdapter(productAdapter);
+        UPCView.setText(UPC);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reference, menu);
+        getMenuInflater().inflate(R.menu.menu_view_item, menu);
         return true;
     }
 
@@ -83,7 +72,7 @@ public class ReferenceActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_reference, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_view_item, container, false);
             return rootView;
         }
     }

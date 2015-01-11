@@ -3,6 +3,6 @@ import org.json.JSONObject;
 
 public interface FetchUrlCallback
 {
-    abstract void execute(JSONObject result);
+    abstract void execute(Object result);
 
 }

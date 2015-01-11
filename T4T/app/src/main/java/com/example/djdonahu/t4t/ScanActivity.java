@@ -108,8 +108,35 @@ public class ScanActivity extends ActionBarActivity {
             String upc = scanResult.getContents();
             Log.d(SCAN_TAG, "UPC: " + upc);
             // To the internet!
-            // TODO: Go to the internet
+            OutpanRequest.getProduct(
+                    upc,
+                    new FetchUrlCallback() {
+
+                        @Override
+                        public void execute(Object result) {
+                            Product p = getProduct(result);
+                            if (p != null) {
+                                Log.d(SCAN_TAG, p.toString());
+                            }
+                        }
+                    }
+            );
         }
+    }
+
+    // Cast the product
+    public Product getProduct(Object result) {
+        Product product = null;
+        try {
+            product = (Product) result;
+            // now do something with product result.
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+        return product;
     }
 
     //
