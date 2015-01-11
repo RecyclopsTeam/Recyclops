@@ -80,7 +80,6 @@ public class StatsActivity extends ActionBarActivity {
         }
 
         Log.e("HMM", "good herE?!!!");
-        StatTracker.getInstance(this);
         graphStats = StatTracker.getGraphData();
 
         Log.e("w", "w");

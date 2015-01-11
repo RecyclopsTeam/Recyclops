@@ -19,6 +19,7 @@ public class RecyclopsApplication extends Application {
         c = getApplicationContext();
         // Initialize shared prefs with application context
         SavedPreferences.getInstance(getApplicationContext());
+        StatTracker.getInstance(getApplicationContext());
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);

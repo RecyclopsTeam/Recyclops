@@ -125,8 +125,14 @@ public class StatTracker {
     public static void addStats(Product product){
         float recycling = 0;
         float trash = 0;
-        float contentWeight = weightValues.get(product.contents_size);
-        float packagingWeight = weightValues.get(product.packaging_size);
+        float contentWeight = 0;
+        float packagingWeight = 0;
+        if (product.contents_size != null) {
+            contentWeight = weightValues.get(product.contents_size);
+        }
+        if (product.packaging_size != null) {
+            packagingWeight = weightValues.get(product.packaging_size);
+        }
 
         if(product.hasPackaging()) {
             if (product.contentsRecyclable()) {

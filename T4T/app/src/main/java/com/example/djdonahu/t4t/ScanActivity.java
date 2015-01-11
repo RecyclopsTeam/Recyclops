@@ -238,6 +238,9 @@ public class ScanActivity extends ActionBarActivity {
                     loadProductView(p);
                 } else if (e != null) {
                     Log.d("query result", "Error: " + e.getMessage());
+                    setContentView(R.layout.scan_error);
+                    TextView error_text = (TextView) findViewById(R.id.scan_error_text);
+                    error_text.setText("Item not found in database");
                 }
             }
         });
@@ -259,6 +262,9 @@ public class ScanActivity extends ActionBarActivity {
 
             doParseSearch(upc);
 
+        } else {
+            Log.d(SCAN_TAG, "No barcode returning to main activity");
+            this.finish();
         }
     }
 
