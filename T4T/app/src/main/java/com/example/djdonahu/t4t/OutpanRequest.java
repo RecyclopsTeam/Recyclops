@@ -5,6 +5,37 @@ import android.os.AsyncTask;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+/*
+
+    getProduct (or another callback) is another method within the calling class,
+    or any other method you wish to call. Blame the really stupid structure on
+    Java's lack of function pointers.
+
+    Example of product fetch:
+    OutpanRequest.getProduct( "barcodehere",
+        new FetchUrlCallback() {
+
+        @Override
+        public void execute(Object result) {
+            getProduct(result);
+        }
+    });
+
+    Here is how your getProduct(result) might work if result is a Product object.
+    public void getProduct(Object result)
+    {
+        try {
+        Product product = (Product) result;
+        // now do something with product result.
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+    }
+
+ */
 
 public class OutpanRequest
 {
