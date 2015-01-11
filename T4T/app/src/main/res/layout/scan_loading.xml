@@ -5,7 +5,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#ff86e3f0">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="276dp"
@@ -22,6 +23,9 @@
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/button"
+        android:background="@drawable/red_button"
+        style="@style/button_text"
+        android:textSize="16dp"
         android:layout_gravity="center_horizontal"
         android:onClick="onCancelClick" />
 
