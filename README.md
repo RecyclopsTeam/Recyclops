@@ -1,5 +1,7 @@
 # T4T
 
+Winner of the Tech Cares category at UCSC Hackathon 2015
+
 Our app is Recyclops. It's purpose is to get people thinking about the waste they are generating 
 when they purchase products, and provide them with the necessary information for them to make more 
 environmentally-conscious purchases. Users can scan the barcode of a product, and then we pull data 
