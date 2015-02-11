@@ -1,4 +1,4 @@
-# T4T
+# Recyclops
 
 Winner of the Tech Cares category at UCSC Hackathon 2015
 
@@ -11,4 +11,4 @@ time, encouraging them to minimize their landfill waste and opt for more recycla
 The app also serves as a reference,s o users can scan an item when they are ready to dispose of it, 
 to make sure they are disposing of it in the proper manner.
 
-https://www.youtube.com/watch?v=FEVhxWZzrn0&feature=youtu.be
+https://www.youtube.com/watch?v=FEVhxWZzrn0
