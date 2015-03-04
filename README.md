@@ -8,7 +8,7 @@ environmentally-conscious purchases. Users can scan the barcode of a product, an
 from our server to display the material(s) of the scanned product, and how it must be disposed 
 (trash, recycling, compost, etc). Users can also view a chart that shows their waste trends over 
 time, encouraging them to minimize their landfill waste and opt for more recyclable products instead. 
-The app also serves as a reference,s o users can scan an item when they are ready to dispose of it, 
+The app also serves as a reference, so users can scan an item when they are ready to dispose of it, 
 to make sure they are disposing of it in the proper manner.
 
 https://www.youtube.com/watch?v=FEVhxWZzrn0
